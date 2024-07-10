@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Book {
+  id String @id @default(uuid())
+  code String @db.VarChar(10) @unique
+  title String @db.VarChar(100)
+  stock Int @default(0) @db.Integer
+  author String @db.VarChar(100)
+
+  createdAt DateTime @db.Timestamp() @default(now())
+  updatedAt DateTime @db.Timestamp() @updatedAt
+
+  Members BorrowBook[]
+}
+
+model Member{
+    id String @id @default(uuid())
+    code String @db.VarChar(10) @unique
+    name String @db.VarChar(100)
+
+
+    isPenalty Boolean @default(false)
+    penaltyOver DateTime? @db.Timestamp()
+
+    createdAt DateTime @db.Timestamp() @default(now())
+    updatedAt DateTime @db.Timestamp() @updatedAt
+
+    Books BorrowBook[]
+}
+
+model BorrowBook {
+  id String @id @default(uuid())
+
+  
+  book_id String @db.VarChar(10)
+  member_id String @db.VarChar(10)
+  bookDate DateTime? @db.Timestamp()
+
+  Book Book @relation(fields: [book_id], references: [id])
+  Member Member @relation(fields: [member_id], references: [id])
+
+
+  isDeleted Boolean @default(false)
+  createdAt DateTime @db.Timestamp() @default(now())
+  updatedAt DateTime @db.Timestamp() @updatedAt
+}

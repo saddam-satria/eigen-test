@@ -1,0 +1,41 @@
+name: Production Deployment
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  deployment:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: running on nodejs ${{matrix.node-version}}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node-version}}
+      - name: install package
+        run: yarn install
+      - name: run testing
+        run: yarn test
+      - name: build code
+        run: yarn build
+  docker_build:
+    runs-on: ubuntu-22.04
+    needs: deployment
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Docker Login
+        uses: docker/login-action@v2
+        with:
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_TOKEN }}
+      - name: Build Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: dockerfiles/prod.dockerfile
+          push: true
+          tags: saddamsatria/nest-boilerplate:v1

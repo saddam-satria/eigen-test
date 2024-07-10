@@ -1,0 +1,1 @@
+{"version":3,"file":"MessageProperties.js","sourceRoot":"","sources":["../../../src/common/MessageProperties.ts"],"names":[],"mappings":";;AAAA,gDAAqD;AAErD,MAAM,gBAAgB,GAAG,CAAC,GAAW,EAAE,IAAiB,EAAU,EAAE;IAClE,QAAQ,GAAG,EAAE;QACX,KAAK,0BAAe,CAAC,GAAG;YACtB,OAAO,0BAAe,CAAC,OAAO,CAAC,IAAI,CAAC,CAAC;QACvC;YACE,OAAO,SAAS,CAAC;KACpB;AACH,CAAC,CAAC;AAEF,kBAAe,gBAAgB,CAAC"}
