@@ -23,6 +23,8 @@ COPY .prettierrc ./
 
 COPY database ./database
 
+COPY test ./test
+
 RUN yarn prisma generate
 
 RUN yarn run build 

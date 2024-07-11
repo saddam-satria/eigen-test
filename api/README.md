@@ -69,3 +69,11 @@ docker exec api_container yarn run db:migrate
 docker exec api_container yarn run db:seed
 
 ```
+
+#### Docker Run Test Case (dev mode)
+
+```
+
+docker exec api_container yarn run test:e2e
+
+```

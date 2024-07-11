@@ -33,6 +33,4 @@ COPY --from=builder /eigen-test/node_modules ./node_modules
 
 COPY public ./public
 
-COPY database ./database
-
 CMD [ "node", "build/main" ]
