@@ -10,12 +10,12 @@ import { MemberWithTotalBook } from '../types/MemberResponse';
 @Injectable()
 class MemberRepository {
   public async findMembers(): Promise<MemberWithTotalBook[]> {
-    return await prismaClient.$queryRaw`SELECT m.*, (select count(*) from public."BorrowBook" b WHERE b.member_id = m.id)::integer as total_book FROM "public"."Member" m`;
+    return await prismaClient.$queryRaw`SELECT m.*, (select count(*) from public."BorrowBook" b WHERE b.member_id = m.id and b."isDeleted" = false)::integer as total_book FROM "public"."Member" m`;
   }
   public async findMemberByMemberCode(
     memberCode: string,
   ): Promise<MemberWithTotalBook[]> {
-    return prismaClient.$queryRaw`SELECT m.*, (select count(*) from public."BorrowBook" b WHERE b.member_id = m.id)::integer as total_book FROM "public"."Member" m WHERE m.code = ${memberCode}`;
+    return prismaClient.$queryRaw`SELECT m.*, (select count(*) from public."BorrowBook" b WHERE b.member_id = m.id and b."isDeleted" = false)::integer as total_book FROM "public"."Member" m WHERE m.code = ${memberCode}`;
   }
 
   public borrowBooks(
