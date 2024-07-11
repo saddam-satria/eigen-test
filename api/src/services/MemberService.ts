@@ -1,20 +1,27 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import BaseResponse from 'src/common/types/BaseResponse';
-import AbstractService from 'src/components/AbstractService';
-import ResponseService from 'src/components/BaseResponse';
-import BookRepository from 'src/repositories/BookRepository';
-import MemberRepository from 'src/repositories/MemberRepository';
+import { isISO8601 } from 'class-validator';
+import ResponseService from '../common/ResponseService';
+import AbstractService from '../components/AbstractService';
+import MemberComponent from '../components/MemberComponent';
+import BookRepository from '../repositories/BookRepository';
+import MemberRepository from '../repositories/MemberRepository';
+import {
+  BookSchema,
+  MemberBookSchema,
+  MemberReturnBookSchema,
+} from '../schemas/MemberSchema';
 import {
   MemberWithBorrowedBook,
   MemberWithTotalBook,
-} from 'src/types/member/MemberResponse';
+} from '../types/MemberResponse';
+import BaseResponse from '../types/shared/BaseResponse';
 
 @Injectable()
-class MemberService extends AbstractService {
+class MemberService extends AbstractService implements MemberComponent {
   constructor(
-    private memberRepository: MemberRepository,
-    private responseService: ResponseService,
-    private bookRepository: BookRepository,
+    private readonly memberRepository: MemberRepository,
+    private readonly responseService: ResponseService,
+    private readonly bookRepository: BookRepository,
   ) {
     super();
   }
@@ -83,6 +90,86 @@ class MemberService extends AbstractService {
         ),
       },
     );
+  }
+  public async borrowBooks(
+    requestData: MemberBookSchema,
+  ): Promise<BaseResponse<MemberBookSchema>> {
+    if (requestData.books.length > 2)
+      this.errorHandler(
+        'each member only borrow 2 books',
+        HttpStatus.BAD_REQUEST,
+      );
+    const isValidationSuccess = this.bookValidation(requestData.books);
+    if (typeof isValidationSuccess === 'string') {
+      throw this.errorHandler(isValidationSuccess, HttpStatus.BAD_REQUEST);
+    }
+    try {
+      const result = await this.memberRepository.borrowBooks(requestData);
+
+      if (result instanceof Error)
+        throw this.errorHandler(result.message, HttpStatus.BAD_REQUEST);
+
+      return this.responseService.send(
+        HttpStatus.OK,
+        this.getMessage('SUCCESS', 'en'),
+        requestData,
+      );
+    } catch (error) {
+      if (error.response && error.response.statusCode === 400) {
+        throw this.errorHandler(error.message, HttpStatus.BAD_REQUEST);
+      }
+
+      throw this.errorHandler(
+        this.getMessage('UNKNOWN_ERROR', 'en'),
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  public async returnBooks(
+    requestData: MemberReturnBookSchema,
+  ): Promise<BaseResponse<MemberReturnBookSchema>> {
+    const isValidationSuccess = this.bookValidation(requestData.books);
+
+    if (typeof isValidationSuccess === 'string') {
+      throw this.errorHandler(isValidationSuccess, HttpStatus.BAD_REQUEST);
+    }
+
+    try {
+      const result = await this.memberRepository.returnBooks(requestData);
+
+      if (result instanceof Error)
+        throw this.errorHandler(result.message, HttpStatus.BAD_REQUEST);
+
+      return this.responseService.send(
+        HttpStatus.OK,
+        this.getMessage('SUCCESS', 'en'),
+        requestData,
+      );
+    } catch (error) {
+      if (error.response && error.response.statusCode === 400) {
+        throw this.errorHandler(error.message, HttpStatus.BAD_REQUEST);
+      }
+
+      throw this.errorHandler(
+        this.getMessage('UNKNOWN_ERROR', 'en'),
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  private bookValidation(requestData: BookSchema[]) {
+    const requestBooks = {};
+    for (const book of requestData) {
+      if (!book.code) return 'book code is required';
+
+      if (requestBooks[book.code]) {
+        return 'cannot have the same book';
+      }
+
+      requestBooks[book.code] = book.code;
+    }
+
+    return true;
   }
 }
 
