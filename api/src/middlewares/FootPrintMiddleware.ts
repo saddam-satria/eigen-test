@@ -3,7 +3,7 @@ import { AllowedIP } from 'src/config/constant';
 import { Request, Response, NextFunction } from 'express';
 import { HttpStatus } from '@nestjs/common';
 import AbstractService from 'src/components/AbstractService';
-import ResponseService from 'src/components/BaseResponse';
+import ResponseService from 'src/common/ResponseService';
 
 @Injectable()
 class FootPrintMiddleware extends AbstractService implements NestMiddleware {

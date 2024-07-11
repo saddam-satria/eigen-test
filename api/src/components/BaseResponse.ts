@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import TBaseResponse from 'src/common/types/BaseResponse';
+import BaseResponse from 'src/types/shared/BaseResponse';
 
 @Injectable()
 class ResponseService {
@@ -7,7 +7,7 @@ class ResponseService {
     statusCode: number,
     message: string,
     data: T,
-  ): TBaseResponse<T> {
+  ): BaseResponse<T> {
     return {
       data,
       message,
@@ -18,7 +18,7 @@ class ResponseService {
     statusCode: number,
     message: string,
     data: T,
-  ): TBaseResponse<T> {
+  ): BaseResponse<T> {
     return {
       data,
       message,
