@@ -1,6 +1,6 @@
 FROM node:alpine3.18 as builder
 
-WORKDIR /app
+WORKDIR /eigen-test
 
 COPY package.json ./
 
@@ -25,12 +25,14 @@ RUN yarn run build
 
 FROM node:alpine3.18 as final 
 
-WORKDIR /app
+WORKDIR /eigen-test
 
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /eigen-test/build ./build
 
-COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /eigen-test/node_modules ./node_modules
 
 COPY public ./public
 
-CMD [ "node", "dist/main" ]
+COPY database ./database
+
+CMD [ "node", "build/main" ]

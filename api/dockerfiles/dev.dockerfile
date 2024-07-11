@@ -1,6 +1,6 @@
 FROM node:alpine3.18
 
-WORKDIR /nest-boilerplate
+WORKDIR /eigen-test
 
 COPY package*.json ./
 COPY yarn*.lock ./
@@ -21,9 +21,10 @@ COPY .eslintrc.js ./
 
 COPY .prettierrc ./
 
+COPY database ./database
+
 RUN yarn prisma generate
 
 RUN yarn run build 
-
 
 CMD [ "yarn", "run" ,"start" ]

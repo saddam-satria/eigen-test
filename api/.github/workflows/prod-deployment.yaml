@@ -37,5 +37,4 @@ jobs:
         with:
           context: .
           file: dockerfiles/prod.dockerfile
-          push: true
-          tags: saddamsatria/nest-boilerplate:v1
+          push: false
