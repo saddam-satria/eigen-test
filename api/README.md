@@ -3,6 +3,12 @@
 - rename .env.example to .env
 - before run dev, make sure database url is correct to connect to db
 
+#### Run Install
+```
+yarn install
+
+```
+
 #### Run Dev
 - base URL: /api/v1
 - Swagger docs /api/docs
