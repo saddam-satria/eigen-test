@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import ResponseService from 'src/components/BaseResponse';
-import BookController from 'src/controllers/BookController';
-import BookRepository from 'src/repositories/BookRepository';
-import BookService from 'src/services/BookService';
+import ResponseService from '../common/ResponseService';
+import BookController from '../controllers/BookController';
+import BookRepository from '../repositories/BookRepository';
+import BookService from '../services/BookService';
 
 @Module({
   controllers: [BookController],

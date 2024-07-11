@@ -1,12 +1,18 @@
-import { Controller, Get } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Controller, Get, HttpStatus } from '@nestjs/common';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
+import BookService from '../services/BookService';
 
-@Controller()
+@Controller('/api/v1')
 @ApiTags('Book Service')
 class BookController {
+  constructor(private readonly bookService: BookService) {}
   @Get('books')
-  public getBooks(): string {
-    return 'Get all books';
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'get unborrowed books',
+  })
+  public getBooks() {
+    return this.bookService.getBooks();
   }
 }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import prismaClient from 'src/config/database';
+import { Book } from '@prisma/client';
+import prismaClient from '../config/database';
 
 @Injectable()
 class BookRepository {
@@ -24,6 +25,9 @@ class BookRepository {
         },
       },
     });
+  }
+  public async findUnborrowedBooks(): Promise<Book[]> {
+    return await prismaClient.$queryRaw`SELECT b.id, b.code, b.title,b.author, b.stock, b."createdAt",b."updatedAt" from "Book" b where b.id not in (select DISTINCT bb.book_id from "BorrowBook" bb WHERE bb."isDeleted" = false)`;
   }
 }
 
