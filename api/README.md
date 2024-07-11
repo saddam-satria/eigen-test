@@ -1,5 +1,55 @@
 ### Eigen Test API
 
+before run dev, make sure database url is correct for connect to db purpose
+
+#### Run Dev
+
+```
+yarn start:dev
+```
+
+#### Run Dev Debug
+
+```
+yarn start:debug
+```
+
+#### Run Build
+
+```
+yarn build
+```
+
+#### Run Production
+
+```
+yarn start
+```
+
+#### Run Test
+
+```
+yarn test:e2e
+```
+
+#### Migrate DB
+
+```
+yarn db:migrate
+```
+
+#### Database Seed
+
+```
+yarn db:seed
+```
+
+#### Database Reset Data
+
+```
+yarn db:reset
+```
+
 #### Docker Compose
 
 ```
