@@ -40,9 +40,10 @@ model BorrowBook {
   id String @id @default(uuid())
 
   
-  book_id String @db.VarChar(10)
-  member_id String @db.VarChar(10)
+  book_id String @db.VarChar(255)
+  member_id String @db.VarChar(255)
   bookDate DateTime? @db.Timestamp()
+  returnDate DateTime? @db.Timestamp()
 
   Book Book @relation(fields: [book_id], references: [id])
   Member Member @relation(fields: [member_id], references: [id])
