@@ -37,13 +37,15 @@ class MemberRepository {
       if (member.isPenalty)
         return new Error('member is subject penalty, abort transaction');
 
-      const now = moment();
+      const now = moment().add(7, 'hours');
       const memberPenaltyDate = moment(member.penaltyOver);
 
-      if (memberPenaltyDate.diff(now, 'days') > 0)
+      const dayDiff = memberPenaltyDate.diff(now, 'days');
+
+      if (dayDiff > 0)
         return new Error('member is subject penalty, abort transaction');
 
-      if (member.isPenalty && memberPenaltyDate.diff(now, 'days') < 1) {
+      if (member.isPenalty && dayDiff < 1) {
         await ctx.member.update({
           where: {
             id: member.id,
@@ -180,7 +182,7 @@ class MemberRepository {
       for (const book of borrowedBooks) {
         const bookDate = moment(book.bookDate);
         const maxReturnDate = bookDate.add(7, 'days');
-        const now = moment();
+        const now = moment().add(7, 'hours');
 
         if (data.returnDate) {
           returnDate = moment(data.returnDate);

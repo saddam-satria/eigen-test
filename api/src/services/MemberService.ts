@@ -110,7 +110,7 @@ class MemberService extends AbstractService implements MemberComponent {
         throw this.errorHandler(result.message, HttpStatus.BAD_REQUEST);
 
       return this.responseService.send(
-        HttpStatus.OK,
+        HttpStatus.CREATED,
         this.getMessage('SUCCESS', 'en'),
         requestData,
       );
@@ -141,7 +141,7 @@ class MemberService extends AbstractService implements MemberComponent {
         throw this.errorHandler(result.message, HttpStatus.BAD_REQUEST);
 
       return this.responseService.send(
-        HttpStatus.OK,
+        HttpStatus.CREATED,
         this.getMessage('SUCCESS', 'en'),
         requestData,
       );
