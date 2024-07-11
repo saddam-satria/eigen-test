@@ -1,5 +1,6 @@
 ### Eigen Test API
 
+rename .env.example to .env
 before run dev, make sure database url is correct for connect to db purpose
 
 #### Run Dev
