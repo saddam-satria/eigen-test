@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { HttpException } from '@nestjs/common';
 import MessagesResponse from 'src/common/MessageProperties';
 import ResponseService from './BaseResponse';
 
