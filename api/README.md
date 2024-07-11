@@ -1,11 +1,11 @@
 ### Eigen Test API
 
-rename .env.example to .env
-before run dev, make sure database url is correct for connect to db purpose
+- rename .env.example to .env
+- before run dev, make sure database url is correct to connect to db
 
 #### Run Dev
-base URL: /api/v1
-Swagger docs /api/docs
+- base URL: /api/v1
+- Swagger docs /api/docs
 ```
 yarn start:dev
 ```
