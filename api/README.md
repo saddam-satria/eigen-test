@@ -8,6 +8,12 @@
 yarn install
 ```
 
+#### Run Prisma Generate Object
+```
+yarn prisma generate
+```
+
+
 #### Run Dev
 - base URL: /api/v1
 - Swagger docs /api/docs
