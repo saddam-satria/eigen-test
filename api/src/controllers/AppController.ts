@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import AppService from 'src/services/AppService';
+import AppService from '../services/AppService';
 
 @Controller()
 class AppController {

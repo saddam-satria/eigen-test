@@ -1,5 +1,5 @@
 import { HttpException } from '@nestjs/common';
-import MessagesResponse from 'src/common/MessageProperties';
+import MessagesResponse from '../common/MessageProperties';
 import ResponseService from './BaseResponse';
 
 class AbstractService {

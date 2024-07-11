@@ -1,8 +1,8 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
-import AppController from 'src/controllers/AppController';
-import AppService from 'src/services/AppService';
+import AppController from '../controllers/AppController';
+import AppService from '../services/AppService';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { STATIC_ASSETS } from 'src/config/constant';
+import { STATIC_ASSETS } from '../config/constant';
 import MemberModule from './MemberModule';
 import BookModule from './BookModule';
 

@@ -2,7 +2,7 @@ import {
   NOT_FOUND_MESSAGE,
   SUCCESS_MESSAGE,
   UNKNOWN_ERROR_MESSAGE,
-} from 'src/utils/messages';
+} from '../utils/messages';
 
 const MessagesResponse = (key: string, lang: 'en' | 'in'): string => {
   switch (key) {

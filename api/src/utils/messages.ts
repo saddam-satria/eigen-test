@@ -1,4 +1,4 @@
-import Message from 'src/types/shared/Message';
+import Message from '../types/shared/Message';
 
 export const SUCCESS_MESSAGE: Message = {
   key: 'SUCCESS_MESSAGE',

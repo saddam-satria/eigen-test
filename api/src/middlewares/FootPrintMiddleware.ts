@@ -1,9 +1,9 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { AllowedIP } from 'src/config/constant';
+import { AllowedIP } from '../config/constant';
 import { Request, Response, NextFunction } from 'express';
 import { HttpStatus } from '@nestjs/common';
-import AbstractService from 'src/components/AbstractService';
-import ResponseService from 'src/common/ResponseService';
+import AbstractService from '../components/AbstractService';
+import ResponseService from '../common/ResponseService';
 
 @Injectable()
 class FootPrintMiddleware extends AbstractService implements NestMiddleware {
